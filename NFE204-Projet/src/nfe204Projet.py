@@ -26,6 +26,7 @@ OPT_PORT = 'port'
 OPT_DB = 'db'
 OPT_PWD = 'password'
 OPT_TIMEOUT = 'timeout'
+OPT_TABLE = 'table'
 
 SECTION_QUERY = 'query'
 OPT_MAX_COUNT = 'max.count'
@@ -80,7 +81,7 @@ def main():
                            config.get(SECTION_RETHINKDB, OPT_DB),
                            config.get(SECTION_RETHINKDB, OPT_PWD),
                            config.getint(SECTION_RETHINKDB, OPT_TIMEOUT))
-    rdb.insertTweets(tweets)
+    rdb.insertTweets(tweets, config.get(SECTION_RETHINKDB, OPT_TABLE))
     rdb.disconnect()
 
     logger.info("Fin du script.")
