@@ -80,7 +80,7 @@ def main():
                            config.get(SECTION_RETHINKDB, OPT_DB),
                            config.get(SECTION_RETHINKDB, OPT_PWD),
                            config.getint(SECTION_RETHINKDB, OPT_TIMEOUT))
-    #rdb.insertTweets(tweets)
+    rdb.insertTweets(tweets)
     rdb.disconnect()
 
     logger.info("Fin du script.")

@@ -2,15 +2,10 @@
 import twitter
 import logging
 from edu.nfe204.projet.twitter.querytime import QueryTime
+from urllib2 import URLError
 
 RESULT_TYPE = 'recent'
 BEFORE_MINUTES = 5
-
-
-CONSUMER_KEY = 'qxCFtzwppbCXZDbSMm0ccCbRR'
-CONSUMER_SECRET = 'VrYemGNl0NlYN28NT1SgHrRwbOy4m5ubmOVl4GyAMpTcbecEKB'
-OAUTH_TOKEN = '64049701-BuqvE8ebNdRtKtYeAzEIpI1TsFaZReZUbr2BZDvwE'
-OAUTH_TOKEN_SECRET = 'tA7amQKvzliaKNYOVu9NA2pQGTfFVOafnGMbPO02lduRU'
 
 
 class TwitterManager:
@@ -27,8 +22,12 @@ class TwitterManager:
 
     def getTweets(self, maxCount, maxRange):
         query = QueryTime(BEFORE_MINUTES)
-        self.search_results = self.twitter_api.search.tweets(q=query.getQuery(),
-            count=maxCount, result_type=RESULT_TYPE)
+        try:
+            self.search_results = self.twitter_api.search.tweets(q=query.getQuery(),
+                count=maxCount, result_type=RESULT_TYPE)
+        except URLError, e:
+            self.logger.critical("Erreur lors de la connection a twitter. Message %s",e, exc_info=True)
+            raise e
         self.statuses = self.search_results['statuses']
         self.__iterateThroughResult(maxRange)
         self.logger.debug("Trouve %s tweets", len(self.statuses))

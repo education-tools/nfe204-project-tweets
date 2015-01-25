@@ -15,7 +15,7 @@ class RethinkdbManager:
         try:
             r.table(self.table).insert(tweets).run()
         except r.RqlRuntimeError, e:
-            self.logger.error("Erreur lors de l'insertion'", exc_info=True)
+            self.logger.critical("Erreur lors de l'insertion. Message %s", e, exc_info=True)
             raise e
 
     def disconnect(self):

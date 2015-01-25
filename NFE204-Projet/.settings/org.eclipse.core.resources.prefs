@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/edu/nfe204/projet/database/rethinkdbmanager.py=utf-8
 encoding//src/edu/nfe204/projet/twitter/querytime.py=utf-8
 encoding//src/edu/nfe204/projet/twitter/twittermanager.py=utf-8
 encoding//src/nfe204Projet.py=utf-8
