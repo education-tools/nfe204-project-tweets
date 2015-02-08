@@ -31,6 +31,9 @@ class TwitterManager:
         self.statuses = self.search_results['statuses']
         self.__iterateThroughResult(maxRange)
         self.logger.debug("Trouve %s tweets", len(self.statuses))
+        for tweet in self.statuses:
+            tweet['timeofday'] = {'minute': query.getTimeOfDayMinute(),
+                                       'hour': query.getTimeOfDayHour()}
         return self.statuses
 
     def __iterateThroughResult(self, maxRange):
